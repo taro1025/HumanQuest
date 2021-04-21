@@ -1,4 +1,4 @@
-require './message_dialog.rb'
+require './messageDialog.rb'
 
 class Human
   include MessageDialog

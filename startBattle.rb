@@ -1,10 +1,12 @@
-require './message_dialog'
+require './messageDialog'
 
 class StartBattle
   include MessageDialog
 
   def battle(**params)
     build_characters(params)
+
+    emergeEnemyMessage(enemy: @enemy)
 
     loop do
       @hero.selectAction(@enemy) #攻撃か食事か選べる
@@ -13,7 +15,7 @@ class StartBattle
       break if @hero.hp <= 0
     end
 
-    battleWin?
+    whichWin?
 
   end
 
@@ -24,11 +26,11 @@ class StartBattle
     @enemy = params[:enemy]
   end
 
-  def battleWin?
+  def whichWin?
     if @hero.hp <= 0
-      puts "#{@hero.name}は目の前が真っ暗になった。"
+      happyEndMessage(character: @hero)
     elsif @enemy.hp <= 0
-      puts "#{@hero.name}は#{@enemy.name}を倒した。"
+      badEndMessage(hero: @hero, enemy: @enemy)
     end
   end
 

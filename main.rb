@@ -2,15 +2,15 @@ require './human.rb'
 require './hero.rb'
 require './enemy.rb'
 require './startBattle.rb'
-
+require './messageDialog.rb'
 
 
 class StartGame
-
+  include MessageDialog
 
   def startGame
 
-    hero = characterMaking
+    hero = heroMaking
     enemy = Enemy.new(name: "わるいやつ", tough: "y", weight: 43)
 
     startBattle = StartBattle.new
@@ -20,13 +20,14 @@ class StartGame
 
 
 
-  def characterMaking
-    print "きみの名前を教えてくれるかな？:"
+  def heroMaking
+    nameQuestionMessage
     name = gets.chomp
-    print "ところで君はタフかい？(y/n):"
+
+    toughQuestionMessage
     tough = true if gets.chomp == 'y'
-    puts tough
-    print "教えてくれてありがとう。最後に君の体重はいくつかね？:"
+
+    weightQuestionMessage
     weight = gets.to_i
 
     Hero.new(name: name, tough: tough, weight: weight)
